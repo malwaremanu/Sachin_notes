@@ -1,0 +1,1 @@
+python3 -m gunicorn main:app --reload

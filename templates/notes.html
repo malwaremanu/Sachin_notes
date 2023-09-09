@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+
+</head>
+<body>
+    <div class="flex" x-data="{ content : {{ context }}, new_content : {}, empty : true }">
+        <div class="min-h-screen w-72 bg-gray-600 p-3">
+            <div @click="new_content = {
+                title : '',
+                msg : '',
+                date : new Date()
+            }, empty = false"
+            class="rounded-full px-4 py-2 bg-black text-white cursor-pointer select-none">Create New</div>
+            <ol>
+                <template x-for="c in content['data']">                    
+                    <li 
+                    @click="new_content = c, empty = false" 
+                    class="px-4 py-2 hover:bg-gray-500 select-none cursor-pointer rounded-md" x-text="c['title']"> </li>
+                </template>                          
+            </ol>
+        </div>
+        <div class="bg-gray-500 min-h-screen w-full">
+            <div class="p-2">
+                <template x-if="new_content['title']">
+                    <form action="/notes" method="post">
+                        <div class="text-center text-sm text-gray-700 my-3" x-text="new_content['date']"></div>
+    
+                        <input type="hidden" name="date" x-model="new_content['date']">
+                        <input type="hidden" name="key" x-model="new_content['key']">
+                        <input type="text" class="w-full mb-2 rounded-md border border-gray-600 bg-transparent px-4 py-2 outline-none" name="title" x-model="new_content['title']"> 
+                                
+                        <textarea name="msg" id="" class="w-full rounded-md border border-gray-600 bg-transparent px-4 py-2 outline-none" cols="30" rows="10" x-model="new_content['msg']"></textarea> 
+                        <br><br>
+                        
+                        <div class="flex items-center justify-between">
+                            <button class="rounded-full px-4 py-2 bg-black text-white">Save / Update</button>
+                            <a :href="'/delete/' + new_content['key']" class="rounded-full px-4 py-2 bg-red-600 text-white">Delete</a>
+                        </div>
+                    </form>
+                </template>
+
+                <template x-if="empty">
+                    <div>Select the note first.</div>                    
+                </template>
+
+                
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>
