@@ -100,13 +100,13 @@ deta = Deta("c0uJEdiLS8zv_tATyVLnLAD5TL2QTqcNkPhWCXRZQbZwY")
 
 # This how to connect to or create a database.
 # db = deta.Base("pib_db")
-db = deta.Base("pib_agri_db")
+db = deta.Base("pib_db")
 
 data = {}
 
-for b in range(1, 10):
+for b in range(4, 10):
     for a in range(1, 32):
-        aaa = check_site(27, a, b, 2023)
+        aaa = check_site(0, a, b, 2023)
         print(aaa)
         if aaa != None:
             db.put(aaa, "D"+str(a)+"-M" + str(b) +"-Y2023")
