@@ -7,10 +7,14 @@ deta = Deta("c0uJEdiLS8zv_tATyVLnLAD5TL2QTqcNkPhWCXRZQbZwY")
 # This how to connect to or create a database.
 db = deta.Base("sachin_db")
 
+@app.route("/pib/")
+def pib():
+    return render_template('pib.html')
+
+
 @app.route("/")
 def hello_world():
     return notes()
-
 
 @app.route("/delete/<key>")
 def delete(key):
